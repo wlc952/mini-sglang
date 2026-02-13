@@ -15,7 +15,7 @@ Usage:
         export SGLANG_GRAPH_DEBUG_LAYERS=0,1,2         # Layers to dump (optional)
 
     2. Insert dump points in model code:
-        from sglang.srt.utils.graph_debug_utils import gdebug
+        from minisgl.utils.graph_utils import gdebug
 
         # In model forward pass
         gdebug.capture_tensor("rope_q", q, layer_id=self.layer_id)
