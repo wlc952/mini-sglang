@@ -155,7 +155,8 @@ class GraphRunner:
         assert self.can_use_cuda_graph(batch)
         self.buffer.copy_from(batch)
         g = self.graph_map[batch.padded_size]
-        gdebug.set_phase("replay", batch_size=batch.padded_size, token_step=batch.reqs[0].device_len)
+        token_step = max(req.device_len for req in batch.reqs)
+        gdebug.set_phase("replay", batch_size=batch.padded_size, token_step=token_step)
         self.attn_backend.prepare_for_replay(batch)
         g.replay()
         gdebug.flush()
