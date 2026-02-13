@@ -158,6 +158,7 @@ class GraphRunner:
         gdebug.set_phase("replay", batch_size=batch.padded_size, token_step=batch.reqs[0].device_len)
         self.attn_backend.prepare_for_replay(batch)
         g.replay()
+        gdebug.flush()
         return self.buffer.logits[: batch.size]
 
     def pad_batch(self, batch: Batch) -> int:
